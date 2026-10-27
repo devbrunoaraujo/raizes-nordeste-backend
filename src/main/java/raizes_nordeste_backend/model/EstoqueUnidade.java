@@ -11,7 +11,14 @@ import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
 import jakarta.persistence.UniqueConstraint;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "estoque_unidade", uniqueConstraints = {
     @UniqueConstraint(columnNames = {"id_unidade", "id_produto"})
@@ -19,6 +26,7 @@ import jakarta.persistence.UniqueConstraint;
 public class EstoqueUnidade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -34,45 +42,6 @@ public class EstoqueUnidade {
 
     @Column(name = "estoque_reservado", nullable = false)
     private Integer estoqueReservado = 0;
-
-    public EstoqueUnidade() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Produto getProduto() {
-        return produto;
-    }
-
-    public void setProduto(Produto produto) {
-        this.produto = produto;
-    }
-
-    public Unidade getUnidade() {
-        return unidade;
-    }
-
-    public void setUnidade(Unidade unidade) {
-        this.unidade = unidade;
-    }
-
-    public Integer getEstoqueTotal() {
-        return estoqueTotal;
-    }
-
-    public void setEstoqueTotal(Integer estoqueTotal) {
-        this.estoqueTotal = estoqueTotal;
-    }
-
-    public Integer getEstoqueReservado() {
-        return estoqueReservado;
-    }
-
-    public void setEstoqueReservado(Integer estoqueReservado) {
-        this.estoqueReservado = estoqueReservado;
-    }
 
     @Transient
     public int getEstoqueDisponivel() {

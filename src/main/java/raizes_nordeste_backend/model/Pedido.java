@@ -14,16 +14,24 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import raizes_nordeste_backend.model.enums.CanalPedido;
 import raizes_nordeste_backend.model.enums.StatusPedido;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "pedido")
 public class Pedido {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = true)
@@ -62,93 +70,6 @@ public class Pedido {
 
     @Column(name = "subtotal", nullable = false, precision = 12, scale = 2)
     private BigDecimal subtotal;
-
-    public Pedido() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Usuario getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Usuario cliente) {
-        this.cliente = cliente;
-    }
-
-    public Unidade getUnidade() {
-        return unidade;
-    }
-
-    public void setUnidade(Unidade unidade) {
-        this.unidade = unidade;
-    }
-
-    public Usuario getAtendente() {
-        return atendente;
-    }
-
-    public void setAtendente(Usuario atendente) {
-        this.atendente = atendente;
-    }
-
-    public CanalPedido getCanalPedido() {
-        return canalPedido;
-    }
-
-    public void setCanalPedido(CanalPedido canalPedido) {
-        this.canalPedido = canalPedido;
-    }
-
-    public StatusPedido getStatus() {
-        return status;
-    }
-
-    public void setStatus(StatusPedido status) {
-        this.status = status;
-    }
-
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
-
-    public LocalDateTime getExpiraEm() {
-        return expiraEm;
-    }
-
-    public void setExpiraEm(LocalDateTime expiraEm) {
-        this.expiraEm = expiraEm;
-    }
-
-    public BigDecimal getValorTotal() {
-        return valorTotal;
-    }
-
-    public void setValorTotal(BigDecimal valorTotal) {
-        this.valorTotal = valorTotal;
-    }
-
-    public BigDecimal getDesconto() {
-        return desconto;
-    }
-
-    public void setDesconto(BigDecimal desconto) {
-        this.desconto = desconto;
-    }
-
-    public BigDecimal getSubtotal() {
-        return subtotal;
-    }
-
-    public void setSubtotal(BigDecimal subtotal) {
-        this.subtotal = subtotal;
-    }
 
     @PrePersist
     protected void preencherDataCriacao() {
