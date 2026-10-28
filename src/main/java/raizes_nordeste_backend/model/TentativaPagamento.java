@@ -14,16 +14,24 @@ import jakarta.persistence.PrePersist;
 import jakarta.persistence.Table;
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.hibernate.annotations.JdbcTypeCode;
 import org.hibernate.type.SqlTypes;
 import raizes_nordeste_backend.model.enums.StatusEstorno;
 import raizes_nordeste_backend.model.enums.StatusPagamento;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "tentativa_pagamento")
 public class TentativaPagamento {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY, optional = false)
@@ -60,93 +68,6 @@ public class TentativaPagamento {
 
     @Column(name = "estorno_concluido_em", nullable = true, columnDefinition = "DATETIME(3)")
     private LocalDateTime estornoConcluidoEm;
-
-    public TentativaPagamento() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Pedido getPedido() {
-        return pedido;
-    }
-
-    public void setPedido(Pedido pedido) {
-        this.pedido = pedido;
-    }
-
-    public String getFormaPagamento() {
-        return formaPagamento;
-    }
-
-    public void setFormaPagamento(String formaPagamento) {
-        this.formaPagamento = formaPagamento;
-    }
-
-    public BigDecimal getValor() {
-        return valor;
-    }
-
-    public void setValor(BigDecimal valor) {
-        this.valor = valor;
-    }
-
-    public StatusPagamento getStatusPagamento() {
-        return statusPagamento;
-    }
-
-    public void setStatusPagamento(StatusPagamento statusPagamento) {
-        this.statusPagamento = statusPagamento;
-    }
-
-    public LocalDateTime getCriadoEm() {
-        return criadoEm;
-    }
-
-    public void setCriadoEm(LocalDateTime criadoEm) {
-        this.criadoEm = criadoEm;
-    }
-
-    public LocalDateTime getRespondidoEm() {
-        return respondidoEm;
-    }
-
-    public void setRespondidoEm(LocalDateTime respondidoEm) {
-        this.respondidoEm = respondidoEm;
-    }
-
-    public StatusEstorno getStatusEstorno() {
-        return statusEstorno;
-    }
-
-    public void setStatusEstorno(StatusEstorno statusEstorno) {
-        this.statusEstorno = statusEstorno;
-    }
-
-    public String getMotivoEstorno() {
-        return motivoEstorno;
-    }
-
-    public void setMotivoEstorno(String motivoEstorno) {
-        this.motivoEstorno = motivoEstorno;
-    }
-
-    public LocalDateTime getEstornoSolicitadoEm() {
-        return estornoSolicitadoEm;
-    }
-
-    public void setEstornoSolicitadoEm(LocalDateTime estornoSolicitadoEm) {
-        this.estornoSolicitadoEm = estornoSolicitadoEm;
-    }
-
-    public LocalDateTime getEstornoConcluidoEm() {
-        return estornoConcluidoEm;
-    }
-
-    public void setEstornoConcluidoEm(LocalDateTime estornoConcluidoEm) {
-        this.estornoConcluidoEm = estornoConcluidoEm;
-    }
 
     @PrePersist
     protected void preencherDataCriacao() {

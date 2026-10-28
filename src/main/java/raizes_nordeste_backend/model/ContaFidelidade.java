@@ -10,12 +10,20 @@ import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 import jakarta.persistence.Transient;
+import lombok.AccessLevel;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
+@Getter
+@Setter
+@NoArgsConstructor
 @Entity
 @Table(name = "conta_fidelidade")
 public class ContaFidelidade {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Setter(AccessLevel.NONE)
     private Long id;
 
     @OneToOne(fetch = FetchType.LAZY, optional = false)
@@ -27,37 +35,6 @@ public class ContaFidelidade {
 
     @Column(name = "saldo_reservado", nullable = false)
     private Integer saldoReservado = 0;
-
-    public ContaFidelidade() {
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public Usuario getCliente() {
-        return cliente;
-    }
-
-    public void setCliente(Usuario cliente) {
-        this.cliente = cliente;
-    }
-
-    public Integer getSaldoTotal() {
-        return saldoTotal;
-    }
-
-    public void setSaldoTotal(Integer saldoTotal) {
-        this.saldoTotal = saldoTotal;
-    }
-
-    public Integer getSaldoReservado() {
-        return saldoReservado;
-    }
-
-    public void setSaldoReservado(Integer saldoReservado) {
-        this.saldoReservado = saldoReservado;
-    }
 
     @Transient
     public int getSaldoDisponivel() {
